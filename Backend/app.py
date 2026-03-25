@@ -542,11 +542,6 @@ DETAIL_TEMPLATE = """
             gap: 10px;
         }
 
-        .edit-comment-form {
-            display: none;
-            margin-top: 15px;
-        }
-
         @media (max-width: 600px) {
             .post-title { font-size: 2.2rem; }
             body { padding: 40px 15px; }
@@ -618,24 +613,11 @@ DETAIL_TEMPLATE = """
                             <div class="comment-body" id="body-{{ comment.id }}">{{ comment.body }}</div>
                             
                             <div class="comment-actions">
-                                <button onclick="toggleEdit('{{ comment.id }}')" class="btn btn-small btn-secondary">Edit</button>
                                 <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST" style="display: inline;">
                                     <input type="hidden" name="post_id" value="{{ post.id }}">
                                     <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
                                 </form>
                             </div>
-
-                            <!-- Edit Form (Hidden by default) -->
-                            <form id="edit-form-{{ comment.id }}" action="{{ url_for('edit_comment', comment_id=comment.id) }}" method="POST" class="edit-comment-form">
-                                <input type="hidden" name="post_id" value="{{ post.id }}">
-                                <div class="form-group">
-                                    <textarea name="body" class="form-control" rows="3" required>{{ comment.body }}</textarea>
-                                </div>
-                                <div style="display: flex; gap: 10px;">
-                                    <button type="submit" class="btn btn-small">Save Changes</button>
-                                    <button type="button" onclick="toggleEdit('{{ comment.id }}')" class="btn btn-small btn-secondary">Cancel</button>
-                                </div>
-                            </form>
                         </div>
                     {% endfor %}
                 </div>
